@@ -16,15 +16,15 @@ const N = Number(input[0]);
 // 5이면 -> 1,3,1 / 1,1,3 /
 // 6이면 -> 5에서 1더한것 + 3에서 3더한것 . 즉 상근 +1, 창영 + 3 이므로, 무조건 창영 승.
 
-const arr = Array(N + 1).fill(0);
+const arr = Array(N + 1).fill(false);
 
 arr[1] = true;
-arr[2] = false;
+// arr[2] = false;
 arr[3] = true;
-arr[4] = false;
+// arr[4] = false;
 
 for (let i = 5; i < N + 1; i++) {
-  arr[i] = !arr[i - 3] || !arr[i - 1];
+  arr[i] = !arr[i - 3] && !arr[i - 1];
 }
 
-console.log(arr[N] === true ? "SK" : "CY");
+console.log(arr[N] ? "SK" : "CY");

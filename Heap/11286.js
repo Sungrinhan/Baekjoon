@@ -254,7 +254,7 @@ function main(N, convertedTestCases) {
     // 어느 한쪽이 length 가 1이면 , 다른쪽을 출력하고 삭제
     else if (target === 0) {
       // 둘다 length가 1이면 , 0을 출력
-      // console.log(`negMaxHeap: ${negMaxHeap} , posMinHeap: ${posMinHeap}`);
+
       if (negMaxHeap.length === 1 && posMinHeap.length === 1) {
         console.log(0);
       }
@@ -281,7 +281,6 @@ function main(N, convertedTestCases) {
     // 음수 maxheap 에 추가
     else if (target < 0) {
       addNegMaxHeap(negMaxHeap, target);
-      // console.log(`negMaxHeap: ${negMaxHeap}`);
     }
   }
 }

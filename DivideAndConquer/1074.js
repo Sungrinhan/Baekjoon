@@ -5,8 +5,6 @@ let [input] = fs.readFileSync(filePath).toString().split("\n");
 
 const [N, r, c] = input.split(" ").map(Number);
 
-console.log(N, r, c);
-
 // r은 세로 index, c 는 가로 인덱스
 
 // 재귀함수로 찾는다. 재귀가 끝나는 조건
@@ -14,30 +12,41 @@ console.log(N, r, c);
 
 // 좌표별로 나눠야함. 2 ^ n-1 씩 나눠서 생각하므로, 왼쪽위, 오른쪽위, 왼쪽아래, 오른쪽 아래인지 고려해서 하기.
 
-// 안풀었네?? ㅇㅇ 안풀었음 ... 히히..
-
-// 조금은 푼줄ㅋㅋ 어제 스카에있었는데
-// 갑자기 상욱이한테 전화와서 양꼬치먹으러감 .
-// 와 개꿀 ㅋㅋㅋㅋ 이거랑 아까 그거 풀고 운동끝나고 함 보쟈 아니면 내일봐도 되고 . 코드리뷰~ ㅇㅇ 걍 지금  볼까 너꺼 ? ㅇㅋㅇㅋ
-//익이거
-// 나 왜 안부름 너 여친만나러 일찍갔짜낭
-// ㅋㅋ ㅇㅋ
-// 뭘봐? 이 문제? ㅇㅇ 지금 보자
-// 힌트줄테니까 너가 지금 풀어봐\math pow 가 제곱이던가  맞네 .
-
 function devideAndConquer(row, column, N) {
-  half = Math.pow(2, N - 1);
-
   // 재귀함수 탈출조건
-  if (N == 0) {
-    return 1;
+  // 시작점은 0 임 .
+  if (N === 0) {
+    return 0;
   }
 
-  // 하프랑 row,column 비교해서 왼쪽 위, 오른쪽 위, 왼쪽 아래, 오른쪽 아래 구분
+  half = Math.pow(2, N - 1);
 
-  // 왼쪽위면 그냥 재귀, 오른쪽 위면 재귀 + 2^n-1
+  console.log("row:", row, "column:", column, "N: ", N);
+  console.log("half 제곱, 2^n", half * half, 2 ** N);
 
-  // 이런식으로 하면 댐 오 나 접근법은 맞았는듯 담배 한대피고서 하겠음! ㅇㅋㅇㅋ 너 담배 끊음 ?  아직 이번주말에 끊음ㅋㅋ  내가 초대할게 리저베이션 프론트 좀 보자 지금 ?  ㅇㅇㅇㅋ 담피하고옴
-  ㅇ;
-  //ㅇㅋ
+  // 왼쪽위인 경우
+  if (row < half && column < half) {
+    console.log("왼쪼구이");
+    return devideAndConquer(row, column, N - 1);
+  }
+  // 오른쪽 위
+  else if (row < half && column >= half) {
+    console.log("오른쪽 위", half * half, 2 ** N);
+    return devideAndConquer(row, column - half, N - 1) + half * half;
+  }
+  // 왼쪽 아래
+  else if (row >= half && column < half) {
+    console.log("왼쪽아래");
+    return devideAndConquer(row - half, column, N - 1) + 2 * half * half;
+  }
+  // 오른쪽 아래
+  else if (row >= half && column >= half) {
+    console.log("오른쪽아래");
+    return devideAndConquer(row - half, column - half, N - 1) + 3 * half * half;
+  }
+
+  // devideAndConquer(1, 1, 1) + 2 * 2 * 2;
+  // devideAndConquer(0,0, 0) +3 + 8 ;
 }
+
+console.log(devideAndConquer(r, c, N));

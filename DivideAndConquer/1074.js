@@ -12,36 +12,45 @@ const [N, r, c] = input.split(" ").map(Number);
 
 // 좌표별로 나눠야함. 2 ^ n-1 씩 나눠서 생각하므로, 왼쪽위, 오른쪽위, 왼쪽아래, 오른쪽 아래인지 고려해서 하기.
 
+console.log(N, r, c);
+
 function devideAndConquer(row, column, N) {
-  // 재귀함수 탈출조건
+  // 재귀함수 탈출조건 , N=== 0 이면 , 2^0 이므로 한칸밖에 없음. 즉 시작점인 0밖에 없음.
   // 시작점은 0 임 .
   if (N === 0) {
     return 0;
   }
 
-  half = Math.pow(2, N - 1);
+  const half = Math.pow(2, N - 1);
 
-  console.log("row:", row, "column:", column, "N: ", N);
-  console.log("half 제곱, 2^n", half * half, 2 ** N);
+  // console.log("row:", row, "column:", column, "N: ", N);
+
+  const isUpperLeft = row < half && column < half;
+  const isUpperRight = row < half && column >= half;
+  const isLowerLeft = row >= half && column < half;
+  const isLowerRight = row >= half && column >= half;
 
   // 왼쪽위인 경우
-  if (row < half && column < half) {
-    console.log("왼쪼구이");
+  if (isUpperLeft) {
+    console.log("왼쪽 위");
     return devideAndConquer(row, column, N - 1);
   }
   // 오른쪽 위
-  else if (row < half && column >= half) {
-    console.log("오른쪽 위", half * half, 2 ** N);
+  else if (isUpperRight) {
+    console.log("오른쪽 위");
     return devideAndConquer(row, column - half, N - 1) + half * half;
   }
   // 왼쪽 아래
-  else if (row >= half && column < half) {
+  else if (isLowerLeft) {
     console.log("왼쪽아래");
+    console.log("상수: ", half * half * 2);
+
     return devideAndConquer(row - half, column, N - 1) + 2 * half * half;
   }
   // 오른쪽 아래
-  else if (row >= half && column >= half) {
+  else if (isLowerRight) {
     console.log("오른쪽아래");
+    console.log("상수:", 3 * half * half);
     return devideAndConquer(row - half, column - half, N - 1) + 3 * half * half;
   }
 
